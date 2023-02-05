@@ -17,7 +17,7 @@ jobs:
     uses: ./.github/workflows/deploy-reusable.yaml
     with:
       ENVIRONMENT: prod
-      FILENAME: better-starboard
+      FILENAME: dub-tracker
       DEST_DIR: programs 
       DB_VOLUME: dtdb
       LOG_VOLUME: dtlogs
@@ -29,7 +29,7 @@ jobs:
     uses: ./.github/workflows/deploy-reusable.yaml
     with:
       ENVIRONMENT: dev
-      FILENAME: better-starboard-dev
+      FILENAME: dub-tracker-dev
       DEST_DIR: programs
       DB_VOLUME: dtdb-dev
       LOG_VOLUME: dtlogs-dev

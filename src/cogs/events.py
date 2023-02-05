@@ -46,7 +46,6 @@ class Events(commands.Cog):
 
         # Get all starred messages in Starboard Channel from DB
         dub_length = cur.execute("SELECT COUNT(*) FROM DUBS WHERE guild_id=:guild_id", {"guild_id": message.guild.id}).fetchone()
-        print(f"dub_length: {dub_length}")
 
         if dub_length == 0:
             # Get ALL Messages

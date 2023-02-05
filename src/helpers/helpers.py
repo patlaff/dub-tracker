@@ -99,15 +99,16 @@ def createEmbed(ctx, total_dubs, binned_dubs, user):
     solo_dubs = binned_dubs[vars.bins.index('solo')]
     duo_dubs = binned_dubs[vars.bins.index('duo')]
     trio_dubs = binned_dubs[vars.bins.index('trio')]
-    squad_dubs = binned_dubs[vars.bins.index('squad')]
+    squad_dubs = binned_dubs[vars.bins.index('quad')]
     # Create Embed Content
     embedVar = discord.Embed(description=f"Dub Count on server: {ctx.guild.name}", color=0xffffff)
     embedVar.set_author(name=user) #, icon_url=message.author.display_avatar)
-    embedVar.insert_field_at(index=1, name="TOTAL DUBS", value=total_dubs[0]) # inline=True)
-    embedVar.insert_field_at(index=2, name="Solo Dubs", value=solo_dubs[0], inline=True)
-    embedVar.insert_field_at(index=3, name="Duo Dubs", value=duo_dubs[0], inline=True)
-    embedVar.insert_field_at(index=4, name="Trio Dubs", value=trio_dubs[0], inline=True)
-    embedVar.insert_field_at(index=5, name="Squad Dubs", value=squad_dubs[0])
+    embedVar.insert_field_at(index=1, name="TOTAL", value=total_dubs[0])
+    embedVar.insert_field_at(index=2, name='', value='\u200b')
+    embedVar.insert_field_at(index=3, name="👨", value=solo_dubs[0]) #, inline=True)
+    embedVar.insert_field_at(index=4, name="👨‍👦", value=duo_dubs[0], inline=True)
+    embedVar.insert_field_at(index=5, name="👨‍👨‍👦", value=trio_dubs[0], inline=True)
+    embedVar.insert_field_at(index=6, name="👨‍👨‍👦‍👦", value=squad_dubs[0])
     return embedVar
 
 async def checkServerConfig(ctx, logger, guild_id):

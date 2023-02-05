@@ -27,7 +27,7 @@ def createTables():
                     message_id INTEGER NOT NULL PRIMARY KEY,
                     guild_id INTEGER NOT NULL,
                     channel_id INTEGER NOT NULL,
-                    message_content INTEGER NOT NULL,
+                    message_content TEXT NOT NULL,
                     author TEXT NOT NULL,
                     date_sent TEXT NOT NULL,
                     dub_type TEXT
@@ -35,9 +35,9 @@ def createTables():
             """)
 
     ## CONFIGS ##
-    with conn:
-        conn.execute("DROP TABLE CONFIGS;")
-        logger.info('Dropped Table, CONFIGS')
+    # with conn:
+    #     conn.execute("DROP TABLE CONFIGS;")
+    #     logger.info('Dropped Table, CONFIGS')
     
     with conn:
         cur.execute("SELECT count(name) FROM sqlite_master WHERE type='table' AND name='CONFIGS'")

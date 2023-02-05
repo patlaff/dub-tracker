@@ -44,7 +44,7 @@ class Config(commands.Cog):
                 )
             )
             conn.commit()
-            response = f"Channel, {dt_channel_name}, has been added as this server's {vars.bot_name}. Default reaction threshold was set to {vars.default_reaction_count_threshold}. Use |threshold to set a custom threshold."
+            response = f"Channel, {dt_channel_name}, has been set as this server's {vars.bot_name}."
             await ctx.channel.send(response)
             logger.info(response)
         else:

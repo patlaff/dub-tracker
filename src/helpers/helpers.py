@@ -68,13 +68,46 @@ def createBot():
 
 bot = createBot()
 
-def createEmbed(message, payload, reaction):
+def insertKeywordMessage(message):
+    cur = conn.cursor()
+    dub_type = None
+    content = message.content.lower()
+    if vars.keyword.lower() in content:
+        for bin in vars.bins:
+            if bin.lower() in content:
+                dub_type = bin
+                break
+        try:
+            cur.execute("INSERT INTO DUBS VALUES (?, ?, ?, ?, ?, ?, ?)", (
+                    message.id,
+                    message.guild.id,
+                    message.channel.id,
+                    message.content,
+                    message.author.name,
+                    message.created_at,
+                    dub_type
+                )
+            )
+            conn.commit()
+            print(f"{message.id} inserted into table, DUBS, with dub_type, {dub_type}")
+        except Exception as e:
+            print(e)
+    cur.close()
+
+def createEmbed(ctx, total_dubs, binned_dubs, user):
+    # Craft vars
+    solo_dubs = binned_dubs[vars.bins.index('solo')]
+    duo_dubs = binned_dubs[vars.bins.index('duo')]
+    trio_dubs = binned_dubs[vars.bins.index('trio')]
+    squad_dubs = binned_dubs[vars.bins.index('squad')]
     # Create Embed Content
-    embedVar = discord.Embed(description=message.content, color=0xffffff)
-    embedVar.set_author(name=message.author.name, icon_url=message.author.display_avatar)
-    embedVar.insert_field_at(index=1, name="Message", value=f"[Link]({message.jump_url})", inline=True)
-    embedVar.insert_field_at(index=2, name="Channel", value=message.channel.name, inline=True)
-    embedVar.insert_field_at(index=3, name="Reaction", value=f"{payload.emoji}({reaction.count})")
+    embedVar = discord.Embed(description=f"Dub Count on server: {ctx.guild.name}", color=0xffffff)
+    embedVar.set_author(name=user) #, icon_url=message.author.display_avatar)
+    embedVar.insert_field_at(index=1, name="TOTAL DUBS", value=total_dubs[0]) # inline=True)
+    embedVar.insert_field_at(index=2, name="Solo Dubs", value=solo_dubs[0], inline=True)
+    embedVar.insert_field_at(index=3, name="Duo Dubs", value=duo_dubs[0], inline=True)
+    embedVar.insert_field_at(index=4, name="Trio Dubs", value=trio_dubs[0], inline=True)
+    embedVar.insert_field_at(index=5, name="Squad Dubs", value=squad_dubs[0])
     return embedVar
 
 async def checkServerConfig(ctx, logger, guild_id):

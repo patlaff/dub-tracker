@@ -1,0 +1,37 @@
+name: Deploy Better-Starboard to Server
+
+on: 
+  push:
+    branches:
+      - dev
+      - main
+    paths:
+      - '.github/workflows/**'
+      - 'src/**'
+      - 'Dockerfile'
+
+jobs:
+
+  prod:
+    if: ${{ github.ref == 'refs/heads/main' }}
+    uses: ./.github/workflows/deploy-reusable.yaml
+    with:
+      ENVIRONMENT: prod
+      FILENAME: better-starboard
+      DEST_DIR: programs 
+      DB_VOLUME: dtdb
+      LOG_VOLUME: dtlogs
+      RESTART_POLICY: unless-stopped
+    secrets: inherit
+  
+  dev:
+    if: ${{ github.ref == 'refs/heads/dev' }}
+    uses: ./.github/workflows/deploy-reusable.yaml
+    with:
+      ENVIRONMENT: dev
+      FILENAME: better-starboard-dev
+      DEST_DIR: programs
+      DB_VOLUME: dtdb-dev
+      LOG_VOLUME: dtlogs-dev
+      RESTART_POLICY: no
+    secrets: inherit

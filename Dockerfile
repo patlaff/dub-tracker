@@ -11,4 +11,4 @@ ENV PATH="$VIRTUAL_ENV/bin:$PATH"
 COPY ./src/ .
 RUN pip3 install -r requirements.txt
 
-CMD ["python3", "better-starboard.py"]
+CMD ["python3", "dub-tracker.py"]
